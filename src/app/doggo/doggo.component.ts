@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 export class Doggo {
-  constructor(public message: string, public status: string) { }
+  message: string;
+  status: string;
 }
 
 @Component({
@@ -14,10 +15,9 @@ export class Doggo {
 })
 
 export class DoggoComponent implements OnInit {
-  doggo: Doggo;
-  favourites = [];
-  //bounceCssClass: string;
-  favouriteCssClass: string;
+  doggo: Doggo = new Doggo();
+  favourites: Doggo[] = [];
+  favouriteCssClass: string = null;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,10 +26,8 @@ export class DoggoComponent implements OnInit {
   }
 
   getDoggo() {
-    //this.bounceCssClass = null;
     this.httpClient.get<any>('https://dog.ceo/api/breeds/image/random').subscribe(response => {
       this.doggo = response;
-      //this.bounceCssClass = 'bounce-animation';
       this.favouriteCssClass = null;
     });
   }

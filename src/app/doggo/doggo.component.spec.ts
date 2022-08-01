@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DoggoComponent } from './doggo.component';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { Doggo, DoggoComponent } from './doggo.component';
 
 describe('DoggoComponent', () => {
   let component: DoggoComponent;
@@ -8,6 +9,7 @@ describe('DoggoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       declarations: [ DoggoComponent ]
     })
     .compileComponents();
@@ -19,5 +21,11 @@ describe('DoggoComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should get favourite', () => {
+    var doggo = { message: "message", status: "status" };
+    component.getFavourite(doggo)
+    expect(component.doggo.message).toBe(doggo.message);
   });
 });
